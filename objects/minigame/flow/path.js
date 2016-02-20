@@ -71,11 +71,11 @@
     }
 
     FlowPath.prototype.getPossibleType = function(i) {
-        if (i == -1) {
-            i = 0;
+        if (i < 1) {
+            i = 1;
         }
-        var cellA = this.path[i];
-        var cellB = this.path[i + 2];
+        var cellA = this.path[i-1];
+        var cellB = this.path[i+1];
         if(cellB == null){
             cellB = {
                 x:4,

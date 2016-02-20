@@ -25,12 +25,13 @@
             var ypos = path.path[i].y;
 
             var types = path.getPossibleType(i);
-            var r = game.rnd.integerInRange(0, types.length);
+            var r = game.rnd.integerInRange(0, types.length-1);
 
             var c1 = new ns.Cell(this.game, offset_intern * xpos + offset_intern / 2 + offset_global_x, offset_intern * ypos + offset_intern / 2 + offset_global_y, types[r], this.nb);
-            console.log(offset_intern * xpos + offset_intern / 2 + offset_global_x, offset_intern * ypos + offset_intern / 2 + offset_global_y)
-            if (!cells[xpos])
+            console.log(types[r], xpos, ypos, offset_intern * xpos + offset_intern / 2 + offset_global_x, offset_intern * ypos + offset_intern / 2 + offset_global_y)
+            if (!cells[xpos]){
                 cells[xpos] = [];
+            }
             cells[xpos][ypos] = c1;
             this.game.add.existing(c1);
         }
