@@ -38,8 +38,17 @@
             if (!cells[xpos]) {
                 cells[xpos] = [];
             }
-            cells[xpos][ypos] = c1;
             this.game.add.existing(c1);
+            if(i == 0 || i == this.path.path.length-1){
+                c1.inputEnabled = false;
+                if(i == this.path.path.length-1 && type.type == 'turn'){
+                    c1.rotate(2);
+                }
+            }
+            else {
+                c1.rotateRandom();
+            }
+            cells[xpos][ypos] = c1;
         }
 
         for (var i = 0; i < this.nb; i++) {

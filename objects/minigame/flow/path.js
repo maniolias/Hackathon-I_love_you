@@ -15,13 +15,15 @@
             }
         }
 
+        this.start = this.cells[0][0];
+        this.end = this.cells[this.size - 1][this.size - 1];
+
         this.generatePath();
-        console.log('finish');
     };
 
     FlowPath.prototype.generatePath = function() {
-        var prev = this.cells[0][0];
-        var end = [this.size - 1, this.size - 1];
+        var prev = this.start;
+        var end = [this.end.x, this.end.y];
 
         this.path = [];
         var nbVisited = 0;
@@ -51,9 +53,6 @@
                 prev = this.path.pop();
             }
         }
-        if (nbVisited == 16)
-            console.log('end path');
-        console.log(nbVisited);
     }
 
     FlowPath.prototype.getUnvisitedCell = function(x, y) {
@@ -71,7 +70,7 @@
     }
 
     FlowPath.prototype.getPossibleType = function(i) {
-        if (!i) {
+        if (i == undefined) {
             return [{
                 type: 'T',
                 proba: 15
@@ -87,21 +86,31 @@
             }];
         }
         var cellA = this.path[i - 1];
+        var isStart = false;
         if (cellA == null) {
             cellA = {
                 x: -1,
                 y: 0
-            }
+            };
+            isStart = true;
         }
         var cellB = this.path[i + 1];
+        var isEnd = false;
         if (cellB == null) {
             cellB = {
                 x: 4,
                 y: 3
-            }
+            };
+            isEnd = true;
         }
 
         if (cellA.x == cellB.x || cellA.y == cellB.y) {
+            if (isEnd || isStart) {
+                return [{
+                    type: 'straight',
+                    proba: 100
+                }];
+            }
             return [{
                 type: 'T',
                 proba: 25
@@ -111,6 +120,12 @@
             }, {
                 type: 'straight',
                 proba: 70
+            }];
+        }
+        if (isEnd || isStart) {
+            return [{
+                type: 'turn',
+                proba: 100
             }];
         }
         return [{
