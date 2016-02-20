@@ -71,22 +71,58 @@
     }
 
     FlowPath.prototype.getPossibleType = function(i) {
-        if (i < 1) {
-            i = 1;
+        if (!i) {
+            return [{
+                type: 'T',
+                proba: 15
+            }, {
+                type: 'cross',
+                proba: 5
+            }, {
+                type: 'straight',
+                proba: 55
+            }, {
+                type: 'turn',
+                proba: 45
+            }];
         }
-        var cellA = this.path[i-1];
-        var cellB = this.path[i+1];
-        if(cellB == null){
+        var cellA = this.path[i - 1];
+        if (cellA == null) {
+            cellA = {
+                x: -1,
+                y: 0
+            }
+        }
+        var cellB = this.path[i + 1];
+        if (cellB == null) {
             cellB = {
-                x:4,
-                y:3
+                x: 4,
+                y: 3
             }
         }
 
         if (cellA.x == cellB.x || cellA.y == cellB.y) {
-            return ['T', 'cross', 'straight'];
+            return [{
+                type: 'T',
+                proba: 25
+            }, {
+                type: 'cross',
+                proba: 5
+            }, {
+                type: 'straight',
+                proba: 70
+            }];
         }
-        return ['T', 'cross', 'turn'];
+        return [{
+            type: 'T',
+            proba: 25
+        }, {
+            type: 'cross',
+            proba: 10
+        }, {
+            type: 'turn',
+            proba: 65
+        }];
     }
 
     window['node'] = window['node'] || {};
