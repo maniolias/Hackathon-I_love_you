@@ -28,6 +28,7 @@
 
             this.game.load.image('start', 'assets/minigame/flow/start.png');
             this.game.load.image('end', 'assets/minigame/flow/end.png');
+            this.game.load.image('flow', 'assets/minigame/flow/flow.png');
         },
 
         create: function() {
@@ -36,7 +37,7 @@
 
         update: function() {
             if (!!this.ready) {
-                this.game.state.start('flow', true, false, 10);
+                this.game.state.start('flow', true, false, 4);
             }
         },
 

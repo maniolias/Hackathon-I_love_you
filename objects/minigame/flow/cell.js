@@ -16,8 +16,8 @@
         switch (type) {
             case 'T':
                 this.structure = [
-                    [0, 0, 0],
-                    [1, 1, 1],
+                    [0, 1, 0],
+                    [1, 1, 0],
                     [0, 1, 0]
                 ];
                 break;
@@ -55,11 +55,26 @@
         while (nb--) {
             this.angle += 90;
             var self = this;
-            this.structure = this.structure[0].map(function(col, i) {
-                return self.structure.map(function(row) {
-                    return row[i]
-                })
-            });
+            for (var i in this.structure) {
+                console.log(JSON.stringify(this.structure[i]))
+            }
+            console.log('\n')
+            var l = this.structure.length - 1;
+            var tmp = [];
+            for (var i in this.structure) {
+                var row = this.structure[i];
+                for (var j in row) {
+                    if (!tmp[j]) {
+                        tmp[j] = [];
+                    }
+                    tmp[j][l - i] = this.structure[i][j];
+                }
+            }
+            for (var i in tmp) {
+                console.log(JSON.stringify(tmp[i]))
+            }
+            console.log('\n')
+            this.structure = tmp;
         }
     }
 
@@ -67,6 +82,36 @@
         var r = this.game.rnd.integerInRange(0, 3);
         while (r--) {
             this.rotate();
+        }
+    }
+
+    Cell.prototype.getNextWaypoint = function(fromx, fromy, side) {
+        var tilex = Math.floor((fromx + this.width / 2 - this.x) / (this.width / 3));
+        tilex = tilex >= 3 ? 2 : tilex;
+        var tiley = Math.floor((fromy + this.height / 2 - this.y) / (this.height / 3));
+        tiley = tiley >= 3 ? 2 : tiley;
+        if (this.structure[tiley] && this.structure[tiley][tilex] && this.structure[tiley][tilex] == 1) {
+            this.structure[tiley][tilex] = 0;
+            if (this.structure[tiley - 1] && this.structure[tiley - 1][tilex] == 1) {
+                return this.getWaypointFromCoord(tilex, tiley - 1);
+            }
+            if (this.structure[tiley + 1] && this.structure[tiley + 1][tilex] == 1) {
+                return this.getWaypointFromCoord(tilex, tiley + 1);
+            }
+            if (this.structure[tiley] && this.structure[tiley][tilex - 1] == 1) {
+                return this.getWaypointFromCoord(tilex - 1, tiley);
+            }
+            if (this.structure[tiley] && this.structure[tiley][tilex + 1] == 1) {
+                return this.getWaypointFromCoord(tilex + 1, tiley);
+            }
+        }
+        return null;
+    }
+
+    Cell.prototype.getWaypointFromCoord = function(x, y) {
+        return {
+            x: x * this.width / 2 - this.width / 2 + this.x,
+            y: y * this.height / 2 - this.height / 2 + this.y,
         }
     }
 
