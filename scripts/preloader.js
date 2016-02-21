@@ -30,7 +30,11 @@
             this.game.load.image('end', 'assets/minigame/flow/end.png');
             this.game.load.image('flow', 'assets/minigame/flow/flow.png');
 
-            this.game.load.image('tiles', 'assets/map/tileset.png');
+            this.game.load.image('tiles', 'assets/map/chip1.png');
+            this.game.load.image('tiles', 'assets/map/chip2.png');
+            this.game.load.image('tiles', 'assets/map/cpu1.png');
+            this.game.load.image('tiles', 'assets/map/cpu2.png');
+            this.game.load.image('tiles', 'assets/map/cpu3.png');
         },
 
         create: function() {
@@ -38,8 +42,9 @@
         },
 
         update: function() {
+            var size = this.game.width > this.game.height ? this.game.height : this.game.width; 
             if (!!this.ready) {
-                this.game.state.start('map', true, false);
+                this.game.state.start('map', true, false, size);
             }
         },
 
