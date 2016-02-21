@@ -7,6 +7,7 @@ window.onload = function() {
   game = new Phaser.Game(1280, 800, Phaser.CANVAS, 'flow');
   game.state.add('boot', ns.Boot);
   game.state.add('preloader', ns.Preloader);
+  game.state.add('map', ns.Map);
   game.state.add('flow', ns.Flow);
 
   ns.Game = game;

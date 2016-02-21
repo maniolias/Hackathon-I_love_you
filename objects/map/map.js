@@ -29,7 +29,7 @@
 
         create: function() {
             this.game.stage.backgroundColor = '#124184';
-            var grid = new ns.MapGrid(this.game, 640, this.size);
+            var grid = new ns.MapGrid(this.game);
             this.game.add.existing(grid);
         },
 

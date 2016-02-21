@@ -30,7 +30,7 @@
             this.game.load.image('end', 'assets/minigame/flow/end.png');
             this.game.load.image('flow', 'assets/minigame/flow/flow.png');
 
-            this.game.load.image('cpu', 'assets/map/cpu.png');
+            this.game.load.image('tiles', 'assets/map/tileset.png');
         },
 
         create: function() {
