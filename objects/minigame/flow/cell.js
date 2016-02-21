@@ -79,9 +79,9 @@
     }
 
     Cell.prototype.getNextWaypoint = function(fromx, fromy) {
-        var tilex = Math.floor((fromx + this.width / 2 - this.x) / (this.width / 3));
+        var tilex = Math.floor((fromx + this.offsetX - this.x) / (this.width / 3));
         tilex = tilex >= 3 ? 2 : tilex;
-        var tiley = Math.floor((fromy + this.height / 2 - this.y) / (this.height / 3));
+        var tiley = Math.floor((fromy + this.offsetY - this.y) / (this.height / 3));
         tiley = tiley >= 3 ? 2 : tiley;
         if (this.structure[tiley] && this.structure[tiley][tilex] && this.structure[tiley][tilex] == 1) {
             this.structure[tiley][tilex] = 0;

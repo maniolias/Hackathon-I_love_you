@@ -12,9 +12,10 @@
         var x = 0;
         var y = 0;
 
-        var offset_intern = size / this.nb;
+
         var offset_global_x = (this.game.width - size) / 2;
         var offset_global_y = (this.game.height - size) / 2;
+        var offset_intern = 0;
 
         this.cells = [];
 
@@ -26,7 +27,10 @@
 
             var type = this.getTypes(i);
 
-            var c1 = new ns.Cell(this.game, offset_intern * xpos + offset_intern / 2 + offset_global_x, offset_intern * ypos + offset_intern / 2 + offset_global_y, type.type, this.nb, i == (this.path.path.length - 1));
+            var c1 = new ns.Cell(this.game, 0, 0, type.type, this.nb, i == (this.path.path.length - 1));
+            offset_intern = c1.width;
+            c1.x = offset_intern * xpos + offset_global_x;
+            c1.y = offset_intern * ypos + offset_global_y;
             if (!this.cells[xpos]) {
                 this.cells[xpos] = [];
             }
@@ -46,7 +50,10 @@
             for (var j = 0; j < this.nb; j++) {
                 if (!this.cells[i][j]) {
                     var type = this.getTypes();
-                    var c1 = new ns.Cell(this.game, offset_intern * i + offset_intern / 2 + offset_global_x, offset_intern * j + offset_intern / 2 + offset_global_y, type.type, this.nb);
+                    var c1 = new ns.Cell(this.game, 0,0, type.type, this.nb);
+                    offset_intern = c1.width;
+                    c1.x = offset_intern * i + offset_global_x;
+                    c1.y = offset_intern * j + offset_global_y;
                     if (!this.cells[i])
                         this.cells[i] = [];
                     this.cells[i][j] = c1;
@@ -56,7 +63,7 @@
             }
         }
 
-        this.flow = this.game.add.sprite(offset_global_x, offset_intern / 2 + offset_global_y, 'flow');
+        this.flow = this.game.add.sprite(offset_global_x - c1.offsetX, offset_global_y, 'flow');
         this.flow.anchor.setTo(0.5, 0.5);
         this.flow.scale.set(1 / (nb / 2));
 
@@ -65,7 +72,7 @@
         this.texture = game.add.renderTexture(this.game.width, this.game.height, 'flowtrail');
         this.game.add.sprite(0, 0, this.texture);
 
-        game.time.events.add(Phaser.Timer.SECOND * 20, this.run, this);
+        game.time.events.add(Phaser.Timer.SECOND * 2, this.run, this);
         this.endOfPrepare = false;
 
         this.cellCoords = [0, 0];
@@ -76,11 +83,11 @@
         this.debugPath.lineStyle(1, 0xff0000)
         this.debugPath.moveTo(this.activeWaypoint.x, this.activeWaypoint.y);
 
-        var start = this.game.add.sprite(offset_intern * -1 + offset_intern / 2 + offset_global_x, offset_intern / 2 + offset_global_y, 'start');
+        var start = this.game.add.sprite(offset_global_x - offset_intern,offset_global_y, 'start');
         start.anchor.set(0.5);
         start.scale.set(1 / (nb / 2));
 
-        var end = this.game.add.sprite(offset_intern * this.nb + offset_intern / 2 + offset_global_x, offset_intern * (this.nb - 1) + offset_intern / 2 + offset_global_y, 'end');
+        var end = this.game.add.sprite(offset_intern * this.nb + offset_global_x, offset_intern * (this.nb - 1) + offset_global_y, 'end');
         end.anchor.set(0.5);
         end.scale.set(1 / (nb / 2));
     };
@@ -157,19 +164,19 @@
 
     FlowGrid.prototype.checkDirAndRun = function() {
         if (this.activeWaypoint.y > this.flow.y && this.flowDirection != 'down') {
-            this.flow.angle += 90;
+            //this.flow.angle += 90;
             this.flowDirection = 'down';
         }
         if (this.activeWaypoint.y < this.flow.y && this.flowDirection != 'up') {
-            this.flow.angle -= 90;
+            //this.flow.angle -= 90;
             this.flowDirection = 'up';
         }
         if (this.activeWaypoint.x > this.flow.x && this.flowDirection != 'right') {
-            this.flow.angle += 90;
+            //this.flow.angle += 90;
             this.flowDirection = 'right';
         }
         if (this.activeWaypoint.x < this.flow.x && this.flowDirection != 'left') {
-            this.flow.angle -= 90;
+            //this.flow.angle -= 90;
             this.flowDirection = 'left';
         }
         this.run();
