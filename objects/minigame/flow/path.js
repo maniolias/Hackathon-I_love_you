@@ -71,13 +71,13 @@
 
     FlowPath.prototype.getPossibleType = function(i) {
         if (i == undefined) {
-            return [{
+            return [/*{
                 type: 'T',
                 proba: 15
             }, {
                 type: 'cross',
                 proba: 5
-            }, {
+            }, */{
                 type: 'straight',
                 proba: 55
             }, {
@@ -111,13 +111,13 @@
                     proba: 100
                 }];
             }
-            return [{
+            return [/*{
                 type: 'T',
                 proba: 25
             }, {
                 type: 'cross',
                 proba: 5
-            }, {
+            }, */{
                 type: 'straight',
                 proba: 70
             }];
@@ -128,13 +128,13 @@
                 proba: 100
             }];
         }
-        return [{
+        return [/*{
             type: 'T',
             proba: 25
         }, {
             type: 'cross',
             proba: 10
-        }, {
+        }, */{
             type: 'turn',
             proba: 65
         }];

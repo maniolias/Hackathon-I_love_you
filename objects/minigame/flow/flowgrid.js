@@ -45,7 +45,7 @@
                     c1.rotate(2);
                 }
             } else {
-                //c1.rotateRandom();
+                c1.rotateRandom();
             }
             this.cells[xpos][ypos] = c1;
         }
@@ -58,6 +58,7 @@
                     if (!this.cells[i])
                         this.cells[i] = [];
                     this.cells[i][j] = c1;
+                    c1.rotateRandom();
                     this.game.add.existing(c1);
                 }
             }
@@ -77,7 +78,7 @@
 
         this.cellCoords = [0, 0];
         this.activeCell = this.cells[this.cellCoords[0]][this.cellCoords[1]];
-        this.activeWaypoint = this.activeCell.getNextWaypoint(offset_global_x, offset_intern / 2 + offset_global_y);
+        this.activeWaypoint = this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
 
         this.debugPath = game.add.graphics(0, 0)
         this.debugPath.lineStyle(1, 0xff0000)
