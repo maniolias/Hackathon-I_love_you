@@ -31,10 +31,7 @@
             this.game.load.image('flow', 'assets/minigame/flow/flow.png');
 
             this.game.load.image('chip1', 'assets/map/chip1.png');
-            this.game.load.image('chip2', 'assets/map/chip2.png');
             this.game.load.image('cpu1', 'assets/map/cpu1.png');
-            this.game.load.image('cpu2', 'assets/map/cpu2.png');
-            this.game.load.image('cpu3', 'assets/map/cpu3.png');
         },
 
         create: function() {
