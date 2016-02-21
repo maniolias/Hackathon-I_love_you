@@ -9,24 +9,26 @@
 
         this.nb = nb;
 
+        var graphics = game.add.graphics(0, 0);
+
         var x = 0;
         var y = 0;
 
         var offset_global_x = (this.game.width - size) / 2;
         var offset_global_y = (this.game.height - size) / 2;
         var offset_intern = 0;
+        var c1 = {};
 
         this.cells = [];
 
         this.path = new ns.FlowPath(nb);
-
         for (var i = 0; i < this.path.path.length; i++) {
             var xpos = this.path.path[i].x;
             var ypos = this.path.path[i].y;
 
             var type = this.getTypes(i);
 
-            var c1 = new ns.Cell(this.game, 0, 0, type.type, this.nb, i == (this.path.path.length - 1));
+            c1 = new ns.Cell(this.game, 0, 0, type.type, this.nb, i == (this.path.path.length - 1));
             offset_intern = c1.width;
             c1.x = offset_intern * xpos + offset_global_x;
             c1.y = offset_intern * ypos + offset_global_y;
@@ -45,11 +47,21 @@
             this.cells[xpos][ypos] = c1;
         }
 
+        // set a fill and line style
+        graphics.beginFill(0x000000);
+        graphics.lineStyle(5, 0x000000, 0);
+        graphics.moveTo(offset_global_x - c1.offsetX - 5, offset_global_y - c1.offsetY - 5);
+        graphics.lineTo(offset_global_x + (this.nb) * c1.width - c1.offsetX + 5 , offset_global_y - c1.offsetY - 5);
+        graphics.lineTo(offset_global_x + (this.nb) * c1.width - c1.offsetX + 5 , offset_global_y + (this.nb) * c1.height - c1.offsetY + 5);
+        graphics.lineTo(offset_global_x - c1.offsetX - 5 , offset_global_y + (this.nb) * c1.height - c1.offsetY + 5);
+        graphics.moveTo(offset_global_x - c1.offsetX - 5, offset_global_y - c1.offsetY - 5);
+        graphics.endFill();
+
         for (var i = 0; i < this.nb; i++) {
             for (var j = 0; j < this.nb; j++) {
                 if (!this.cells[i][j]) {
                     var type = this.getTypes();
-                    var c1 = new ns.Cell(this.game, 0,0, type.type, this.nb);
+                    var c1 = new ns.Cell(this.game, 0, 0, type.type, this.nb);
                     offset_intern = c1.width;
                     c1.x = offset_intern * i + offset_global_x;
                     c1.y = offset_intern * j + offset_global_y;
@@ -71,20 +83,22 @@
         this.texture = game.add.renderTexture(this.game.width, this.game.height, 'flowtrail');
         this.game.add.sprite(0, 0, this.texture);
 
-        game.time.events.add(Phaser.Timer.SECOND * 2, this.run, this);
+        game.time.events.add(Phaser.Timer.SECOND * 20, this.run, this);
         this.endOfPrepare = false;
 
         this.cellCoords = [0, 0];
         this.activeCell = this.cells[this.cellCoords[0]][this.cellCoords[1]];
         this.activeWaypoint = this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
 
-        var start = this.game.add.sprite(offset_global_x - offset_intern,offset_global_y, 'start');
+        var start = this.game.add.sprite(offset_global_x - offset_intern, offset_global_y, 'start');
         start.anchor.set(0.5);
         start.scale.set(1 / (nb / 2));
 
         var end = this.game.add.sprite(offset_intern * this.nb + offset_global_x, offset_intern * (this.nb - 1) + offset_global_y, 'end');
         end.anchor.set(0.5);
         end.scale.set(1 / (nb / 2));
+
+
     };
 
     FlowGrid.prototype = Object.create(Phaser.Group.prototype);

@@ -28,7 +28,7 @@
         },
 
         create: function() {
-            this.game.stage.backgroundColor = '#124184';
+            this.game.stage.backgroundColor = '#2C600C';
             var size = this.game.width > this.game.height ? this.game.height : this.game.width;
             var grid = new ns.FlowGrid(this.game, size * 0.75, this.size);
             this.game.add.existing(grid);
