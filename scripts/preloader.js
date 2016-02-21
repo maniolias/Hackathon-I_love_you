@@ -21,7 +21,7 @@
             this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
             this.load.setPreloadSprite(this.asset);
 
-            this.game.load.image('straight', 'assets/minigame/flow/straight.jpg');
+            this.game.load.image('straight', 'assets/minigame/flow/straight.png');
             this.game.load.image('turn', 'assets/minigame/flow/turn.png');
             this.game.load.image('cross', 'assets/minigame/flow/cross.png');
             this.game.load.image('T', 'assets/minigame/flow/T.png');

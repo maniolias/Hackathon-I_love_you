@@ -12,7 +12,6 @@
         var x = 0;
         var y = 0;
 
-
         var offset_global_x = (this.game.width - size) / 2;
         var offset_global_y = (this.game.height - size) / 2;
         var offset_intern = 0;
@@ -78,10 +77,6 @@
         this.cellCoords = [0, 0];
         this.activeCell = this.cells[this.cellCoords[0]][this.cellCoords[1]];
         this.activeWaypoint = this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
-
-        this.debugPath = game.add.graphics(0, 0)
-        this.debugPath.lineStyle(1, 0xff0000)
-        this.debugPath.moveTo(this.activeWaypoint.x, this.activeWaypoint.y);
 
         var start = this.game.add.sprite(offset_global_x - offset_intern,offset_global_y, 'start');
         start.anchor.set(0.5);
@@ -185,7 +180,6 @@
     FlowGrid.prototype.update = function() {
         if (this.endOfPrepare) {
             this.texture.renderXY(this.flow, this.flow.x, this.flow.y);
-            this.debugPath.lineTo(this.flow.x, this.flow.y)
         }
     }
 
