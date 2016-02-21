@@ -98,8 +98,8 @@
         var isEnd = false;
         if (cellB == null) {
             cellB = {
-                x: 4,
-                y: 3
+                x: this.size,
+                y: this.size-1
             };
             isEnd = true;
         }

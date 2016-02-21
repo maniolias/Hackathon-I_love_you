@@ -34,7 +34,7 @@
 
             var type = this.getTypes(i);
 
-            var c1 = new ns.Cell(this.game, offset_intern * xpos + offset_intern / 2 + offset_global_x, offset_intern * ypos + offset_intern / 2 + offset_global_y, type.type, this.nb);
+            var c1 = new ns.Cell(this.game, offset_intern * xpos + offset_intern / 2 + offset_global_x, offset_intern * ypos + offset_intern / 2 + offset_global_y, type.type, this.nb, i == (this.path.path.length - 1));
             if (!this.cells[xpos]) {
                 this.cells[xpos] = [];
             }
@@ -50,7 +50,7 @@
             this.cells[xpos][ypos] = c1;
         }
 
-        for (var i = 0; i < this.nb; i++) {
+       /* for (var i = 0; i < this.nb; i++) {
             for (var j = 0; j < this.nb; j++) {
                 if (!this.cells[i][j]) {
                     var type = this.getTypes();
@@ -62,7 +62,7 @@
                     this.game.add.existing(c1);
                 }
             }
-        }
+        }*/
 
         this.flow = this.game.add.sprite(offset_global_x, offset_intern / 2 + offset_global_y, 'flow');
         this.flow.anchor.setTo(0, 0.5);
@@ -109,7 +109,7 @@
 
     FlowGrid.prototype.run = function() {
         this.endOfPrepare = true;
-        this.tween = this.game.add.tween(this.flow).to(this.activeWaypoint, 1000, Phaser.Easing.Linear.None, true);
+        this.tween = this.game.add.tween(this.flow).to(this.activeWaypoint, 250, Phaser.Easing.Linear.None, true);
         this.tween = this.tween.onComplete.add(this.continu, this);
     }
 
@@ -130,12 +130,18 @@
                     this.cellCoords[0] += 1;
                     break;
             }
-            this.activeCell = this.cells[this.cellCoords[0]][this.cellCoords[1]];
-            this.activeWaypoint = this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
-            if (this.activeWaypoint != null) {
-                this.checkDirAndRun();
+            if (this.cells[this.cellCoords[0]]) {
+                this.activeCell = this.cells[this.cellCoords[0]][this.cellCoords[1]];
+                this.activeWaypoint = this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
+                if (this.activeWaypoint != null) {
+                    this.checkDirAndRun();
+                }
             } else {
-                this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
+                if (this.activeCell.isEnd) {
+                    alert('you win');
+                } else {
+                    alert('you loose');
+                }
             }
         } else {
             this.checkDirAndRun();

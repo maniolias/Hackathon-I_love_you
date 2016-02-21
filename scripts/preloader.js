@@ -37,7 +37,7 @@
 
         update: function() {
             if (!!this.ready) {
-                this.game.state.start('flow', true, false, 16);
+                this.game.state.start('flow', true, false, 2);
             }
         },
 

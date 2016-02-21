@@ -5,13 +5,14 @@
 
     var animationsEnabled = true;
 
-    var Cell = function(game, x, y, type, nb) {
+    var Cell = function(game, x, y, type, nb, end) {
         Phaser.Sprite.call(this, game, x, y, type);
 
         this.inputEnabled = true;
         this.events.onInputDown.add(this.rotate, this);
         this.anchor.set(0.5);
         this.scale.set(1 / (nb / 2));
+        this.isEnd = end;
 
         switch (type) {
             case 'T':
@@ -55,10 +56,6 @@
         while (nb--) {
             this.angle += 90;
             var self = this;
-            for (var i in this.structure) {
-                console.log(JSON.stringify(this.structure[i]))
-            }
-            console.log('\n')
             var l = this.structure.length - 1;
             var tmp = [];
             for (var i in this.structure) {
@@ -70,10 +67,6 @@
                     tmp[j][l - i] = this.structure[i][j];
                 }
             }
-            for (var i in tmp) {
-                console.log(JSON.stringify(tmp[i]))
-            }
-            console.log('\n')
             this.structure = tmp;
         }
     }
@@ -85,7 +78,7 @@
         }
     }
 
-    Cell.prototype.getNextWaypoint = function(fromx, fromy, side) {
+    Cell.prototype.getNextWaypoint = function(fromx, fromy) {
         var tilex = Math.floor((fromx + this.width / 2 - this.x) / (this.width / 3));
         tilex = tilex >= 3 ? 2 : tilex;
         var tiley = Math.floor((fromy + this.height / 2 - this.y) / (this.height / 3));
