@@ -90,15 +90,15 @@
         // set a fill and line style
         graphics.beginFill(0x000000);
         graphics.lineStyle(10, 0x000000, 1);
-        graphics.moveTo(offset_global_x - start.width - c1.offsetX , offset_global_y - c1.offsetY );
-        graphics.lineTo(offset_global_x + (this.nb) * c1.width - c1.offsetX , offset_global_y - c1.offsetY );
-        graphics.lineTo(offset_global_x + (this.nb) * c1.width - c1.offsetX , offset_global_y + (this.nb - 1) * c1.height - c1.offsetY );
-        graphics.lineTo(offset_global_x + (this.nb + 1) * c1.width - c1.offsetX , offset_global_y + (this.nb - 1) * c1.height - c1.offsetY );
-        graphics.lineTo(offset_global_x + (this.nb + 1) * c1.width - c1.offsetX , offset_global_y + (this.nb) * c1.height - c1.offsetY );
-        graphics.lineTo(offset_global_x - c1.offsetX , offset_global_y + (this.nb) * c1.height - c1.offsetY );
-        graphics.lineTo(offset_global_x - c1.offsetX , offset_global_y - c1.offsetY  + c1.height);
-        graphics.lineTo(offset_global_x - start.width - c1.offsetX , offset_global_y - c1.offsetY  + c1.height);
-        graphics.lineTo(offset_global_x - start.width - c1.offsetX , offset_global_y - c1.offsetY );
+        graphics.moveTo(offset_global_x - start.width - c1.offsetX, offset_global_y - c1.offsetY);
+        graphics.lineTo(offset_global_x + (this.nb) * c1.width - c1.offsetX, offset_global_y - c1.offsetY);
+        graphics.lineTo(offset_global_x + (this.nb) * c1.width - c1.offsetX, offset_global_y + (this.nb - 1) * c1.height - c1.offsetY);
+        graphics.lineTo(offset_global_x + (this.nb + 1) * c1.width - c1.offsetX, offset_global_y + (this.nb - 1) * c1.height - c1.offsetY);
+        graphics.lineTo(offset_global_x + (this.nb + 1) * c1.width - c1.offsetX, offset_global_y + (this.nb) * c1.height - c1.offsetY);
+        graphics.lineTo(offset_global_x - c1.offsetX, offset_global_y + (this.nb) * c1.height - c1.offsetY);
+        graphics.lineTo(offset_global_x - c1.offsetX, offset_global_y - c1.offsetY + c1.height);
+        graphics.lineTo(offset_global_x - start.width - c1.offsetX, offset_global_y - c1.offsetY + c1.height);
+        graphics.lineTo(offset_global_x - start.width - c1.offsetX, offset_global_y - c1.offsetY);
         graphics.endFill();
     }
 
@@ -154,11 +154,7 @@
                 if (this.activeWaypoint != null) {
                     this.checkDirAndRun();
                 } else {
-                    if (this.activeCell.isEnd) {
-                        alert('you win');
-                    } else {
-                        alert('you loose');
-                    }
+                    alert('you loose');
                 }
             } else {
                 if (this.activeCell.isEnd) {
