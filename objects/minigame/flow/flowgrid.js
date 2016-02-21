@@ -50,7 +50,7 @@
             this.cells[xpos][ypos] = c1;
         }
 
-       /* for (var i = 0; i < this.nb; i++) {
+        for (var i = 0; i < this.nb; i++) {
             for (var j = 0; j < this.nb; j++) {
                 if (!this.cells[i][j]) {
                     var type = this.getTypes();
@@ -62,7 +62,7 @@
                     this.game.add.existing(c1);
                 }
             }
-        }*/
+        }
 
         this.flow = this.game.add.sprite(offset_global_x, offset_intern / 2 + offset_global_y, 'flow');
         this.flow.anchor.setTo(0, 0.5);
@@ -130,11 +130,18 @@
                     this.cellCoords[0] += 1;
                     break;
             }
-            if (this.cells[this.cellCoords[0]]) {
+            if (this.cells[this.cellCoords[0]] && this.cells[this.cellCoords[0]][this.cellCoords[1]]) {
                 this.activeCell = this.cells[this.cellCoords[0]][this.cellCoords[1]];
+                this.activeCell.inputEnabled = false;
                 this.activeWaypoint = this.activeCell.getNextWaypoint(this.flow.x, this.flow.y);
                 if (this.activeWaypoint != null) {
                     this.checkDirAndRun();
+                } else {
+                    if (this.activeCell.isEnd) {
+                        alert('you win');
+                    } else {
+                        alert('you loose');
+                    }
                 }
             } else {
                 if (this.activeCell.isEnd) {
