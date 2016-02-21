@@ -18,14 +18,6 @@
 
         this.cells = [];
 
-        var start = this.game.add.sprite(offset_intern * -1 + offset_intern / 2 + offset_global_x, offset_intern / 2 + offset_global_y, 'start');
-        start.anchor.set(0.5);
-        start.scale.set(1 / (nb / 2));
-
-        var end = this.game.add.sprite(offset_intern * this.nb + offset_intern / 2 + offset_global_x, offset_intern * (this.nb - 1) + offset_intern / 2 + offset_global_y, 'end');
-        end.anchor.set(0.5);
-        end.scale.set(1 / (nb / 2));
-
         this.path = new ns.FlowPath(nb);
 
         for (var i = 0; i < this.path.path.length; i++) {
@@ -65,7 +57,7 @@
         }
 
         this.flow = this.game.add.sprite(offset_global_x, offset_intern / 2 + offset_global_y, 'flow');
-        this.flow.anchor.setTo(0, 0.5);
+        this.flow.anchor.setTo(0.5, 0.5);
         this.flow.scale.set(1 / (nb / 2));
 
         this.flowDirection = 'right';
@@ -73,7 +65,7 @@
         this.texture = game.add.renderTexture(this.game.width, this.game.height, 'flowtrail');
         this.game.add.sprite(0, 0, this.texture);
 
-        game.time.events.add(Phaser.Timer.SECOND * 5, this.run, this);
+        game.time.events.add(Phaser.Timer.SECOND * 20, this.run, this);
         this.endOfPrepare = false;
 
         this.cellCoords = [0, 0];
@@ -83,6 +75,14 @@
         this.debugPath = game.add.graphics(0, 0)
         this.debugPath.lineStyle(1, 0xff0000)
         this.debugPath.moveTo(this.activeWaypoint.x, this.activeWaypoint.y);
+
+        var start = this.game.add.sprite(offset_intern * -1 + offset_intern / 2 + offset_global_x, offset_intern / 2 + offset_global_y, 'start');
+        start.anchor.set(0.5);
+        start.scale.set(1 / (nb / 2));
+
+        var end = this.game.add.sprite(offset_intern * this.nb + offset_intern / 2 + offset_global_x, offset_intern * (this.nb - 1) + offset_intern / 2 + offset_global_y, 'end');
+        end.anchor.set(0.5);
+        end.scale.set(1 / (nb / 2));
     };
 
     FlowGrid.prototype = Object.create(Phaser.Group.prototype);
